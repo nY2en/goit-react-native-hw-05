@@ -181,5 +181,3 @@ export const LoginScreen = () => {
     </TouchableWithoutFeedback>
   );
 };
-
-export default LoginScreen;

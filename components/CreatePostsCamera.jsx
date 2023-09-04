@@ -1,10 +1,9 @@
 import { Camera } from "expo-camera";
 import { useEffect, useState } from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
-
 import { View, StyleSheet, TouchableOpacity, Text, Image } from "react-native";
 
-const CreatePostsCamera = ({ photo, setPhoto, setLocation }) => {
+export const CreatePostsCamera = ({ photo, setPhoto }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [camera, setCamera] = useState(null);
 
@@ -91,5 +90,3 @@ const styles = StyleSheet.create({
     color: "#BDBDBD",
   },
 });
-
-export default CreatePostsCamera;

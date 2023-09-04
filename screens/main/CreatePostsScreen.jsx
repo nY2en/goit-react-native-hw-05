@@ -12,9 +12,9 @@ import {
   Keyboard,
   TextInput,
 } from "react-native";
-import CreatePostsCamera from "../components/CreatePostsCamera";
+import { CreatePostsCamera } from "../../components";
 
-const CreatePostsScreen = () => {
+export const CreatePostsScreen = () => {
   const [photo, setPhoto] = useState(null);
   const [location, setLocation] = useState();
 
@@ -60,8 +60,6 @@ const CreatePostsScreen = () => {
                 photo,
               };
 
-              console.log(newPost);
-
               navigation.navigate("Default", newPost);
               setPhoto(null);
               resetForm();
@@ -99,7 +97,7 @@ const CreatePostsScreen = () => {
                   <Text style={styles.buttonTitle}>Опублікувати</Text>
                 </TouchableOpacity>
 
-                <View style={styles.buttonContainer}>
+                <View style={styles.buttonDeleteContainer}>
                   <TouchableOpacity
                     style={styles.buttonDelete}
                     activeOpacity={0.8}
@@ -116,8 +114,6 @@ const CreatePostsScreen = () => {
     </TouchableWithoutFeedback>
   );
 };
-
-export default CreatePostsScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -172,7 +168,7 @@ const styles = StyleSheet.create({
     color: "#FFF",
   },
 
-  buttonContainer: {
+  buttonDeleteContainer: {
     flexDirection: "row",
     justifyContent: "center",
 

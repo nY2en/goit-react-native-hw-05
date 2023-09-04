@@ -1,13 +1,11 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { SimpleLineIcons, Feather } from "@expo/vector-icons";
-import ProfileScreen from "../screens/ProfileScreen";
-import PostsScreen from "../screens/PostsScreen";
-import CreatePostsScreen from "../screens/CreatePostsScreen";
-import styles from "../styles/navigation";
+import { PostsScreen, CreatePostsScreen, ProfileScreen } from "./index";
+import styles from "../../styles/navigation";
 
 const MainTab = createBottomTabNavigator();
 
-const HomeScreen = () => {
+export const HomeScreen = () => {
   return (
     <MainTab.Navigator
       name="Home"
@@ -54,5 +52,3 @@ const HomeScreen = () => {
     </MainTab.Navigator>
   );
 };
-
-export default HomeScreen;

@@ -14,7 +14,7 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 
-const DefaultPostsScreen = ({ route }) => {
+export const DefaultPostsScreen = ({ route }) => {
   const [posts, setPosts] = useState([]);
 
   const navigation = useNavigation();
@@ -28,7 +28,7 @@ const DefaultPostsScreen = ({ route }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View style={{ marginLeft: 140 }}>
+        <View style={styles.headerTitleWrapper}>
           <Text style={styles.headerTitle}>Публікації</Text>
         </View>
         <TouchableOpacity onPress={() => navigation.navigate("Login")}>
@@ -37,9 +37,9 @@ const DefaultPostsScreen = ({ route }) => {
       </View>
 
       <View style={styles.main}>
-        <View style={styles.user}>
+        <View style={styles.userBlock}>
           <Image style={styles.userPhoto} />
-          <View style={{ marginLeft: 8 }}>
+          <View style={styles.userInfo}>
             <Text style={styles.userName}>User Name</Text>
             <Text style={styles.userEmail}>User Email</Text>
           </View>
@@ -49,7 +49,7 @@ const DefaultPostsScreen = ({ route }) => {
           data={posts}
           keyExtractor={(item, indx) => indx.toString()}
           renderItem={({ item }) => (
-            <View style={styles.card}>
+            <View style={styles.cardBlock}>
               <Image source={{ uri: item.photo }} style={styles.cardPhoto} />
               <Text style={styles.cardName}> {item.name}</Text>
               <View style={styles.cardInfo}>
@@ -84,8 +84,6 @@ const DefaultPostsScreen = ({ route }) => {
   );
 };
 
-export default DefaultPostsScreen;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -105,6 +103,10 @@ const styles = StyleSheet.create({
     borderBottomColor: "#BDBDBD",
   },
 
+  headerTitleWrapper: {
+    marginLeft: 140,
+  },
+
   headerTitle: {
     fontFamily: "Roboto500",
     fontSize: 17,
@@ -116,10 +118,14 @@ const styles = StyleSheet.create({
     paddingBottom: 200,
   },
 
-  user: {
+  userBlock: {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 32,
+  },
+
+  userInfo: {
+    marginLeft: 8,
   },
 
   userName: {
@@ -134,6 +140,7 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: "rgba(33, 33, 33, 0.8)",
   },
+
   userPhoto: {
     width: 60,
     height: 60,
@@ -141,7 +148,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
 
-  card: {
+  cardBlock: {
     marginBottom: 32,
   },
 

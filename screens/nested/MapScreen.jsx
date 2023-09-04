@@ -2,7 +2,7 @@ import { View } from "react-native";
 import MapView from "react-native-maps";
 import { Marker } from "react-native-maps";
 
-const MapsScreen = ({ route }) => {
+export const MapsScreen = ({ route }) => {
   const { params } = route;
 
   return (
@@ -26,5 +26,3 @@ const MapsScreen = ({ route }) => {
     </View>
   );
 };
-
-export default MapsScreen;

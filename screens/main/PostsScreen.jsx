@@ -1,11 +1,10 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
-const NestedScreen = createStackNavigator();
-import DefaultPostsScreen from "./nestedScreens/DefaultPostsScreen";
-import CommentsScreen from "./nestedScreens/CommentsScreen";
-import MapsScreen from "./nestedScreens/MapScreen";
+import { DefaultPostsScreen, CommentsScreen, MapsScreen } from "../nested";
 
-const PostsScreen = () => {
+const NestedScreen = createStackNavigator();
+
+export const PostsScreen = () => {
   return (
     <NestedScreen.Navigator>
       <NestedScreen.Screen
@@ -32,5 +31,3 @@ const PostsScreen = () => {
     </NestedScreen.Navigator>
   );
 };
-
-export default PostsScreen;

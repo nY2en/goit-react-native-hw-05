@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { RegistrationScreen, LoginScreen } from "./screens/auth";
 import { useFonts } from "expo-font";
-import HomeScreen from "./screens/Home";
+import { HomeScreen } from "./screens/main";
 
 const AuthStack = createStackNavigator();
 
@@ -21,7 +21,7 @@ export default function App() {
       <AuthStack.Navigator>
         <AuthStack.Screen
           name="Registration"
-          component={HomeScreen}
+          component={RegistrationScreen}
           options={{ headerShown: false }}
         />
         <AuthStack.Screen

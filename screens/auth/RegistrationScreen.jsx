@@ -212,5 +212,3 @@ export const RegistrationScreen = () => {
     </TouchableWithoutFeedback>
   );
 };
-
-export default RegistrationScreen;
