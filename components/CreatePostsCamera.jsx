@@ -4,7 +4,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 
 import { View, StyleSheet, TouchableOpacity, Text, Image } from "react-native";
 
-const CreatePostsCamera = ({ photo, setPhoto }) => {
+const CreatePostsCamera = ({ photo, setPhoto, setLocation }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [camera, setCamera] = useState(null);
 
@@ -30,14 +30,20 @@ const CreatePostsCamera = ({ photo, setPhoto }) => {
   }
 
   return (
-    <View style={styles.cameraBlock}>
-      <Camera style={styles.camera} ref={setCamera}>
-        <TouchableOpacity style={styles.icon} onPress={takePhoto}>
-          <FontAwesome5 name="camera" size={24} color="#BDBDBD" />
-        </TouchableOpacity>
-      </Camera>
+    <View style={{ marginBottom: 32 }}>
+      <View style={styles.cameraBlock}>
+        <Camera style={styles.camera} ref={setCamera}>
+          <TouchableOpacity style={styles.icon} onPress={takePhoto}>
+            <FontAwesome5 name="camera" size={24} color="#BDBDBD" />
+          </TouchableOpacity>
+        </Camera>
 
-      {photo && <Image source={{ uri: photo }} style={styles.tookedPhoto} />}
+        {photo && <Image source={{ uri: photo }} style={styles.tookedPhoto} />}
+      </View>
+
+      <Text style={styles.text}>
+        {photo ? "Редагувати фото" : "Завантажити фото"}
+      </Text>
     </View>
   );
 };
@@ -45,7 +51,7 @@ const CreatePostsCamera = ({ photo, setPhoto }) => {
 const styles = StyleSheet.create({
   cameraBlock: {
     height: 240,
-    marginBottom: 40,
+    marginBottom: 8,
 
     borderRadius: 8,
     borderWidth: 1,
@@ -78,6 +84,11 @@ const styles = StyleSheet.create({
     width: "100%",
 
     height: "100%",
+  },
+  text: {
+    fontFamily: "Roboto400",
+    fontSize: 16,
+    color: "#BDBDBD",
   },
 });
 

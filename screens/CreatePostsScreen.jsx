@@ -3,7 +3,6 @@ import { useNavigation } from "@react-navigation/native";
 import { Formik } from "formik";
 import { AntDesign } from "@expo/vector-icons";
 import * as Location from "expo-location";
-
 import {
   View,
   StyleSheet,
@@ -13,14 +12,11 @@ import {
   Keyboard,
   TextInput,
 } from "react-native";
-
 import CreatePostsCamera from "../components/CreatePostsCamera";
 
 const CreatePostsScreen = () => {
   const [photo, setPhoto] = useState(null);
-  const [location, setLocation] = useState({});
-
-  const navigation = useNavigation();
+  const [location, setLocation] = useState();
 
   useEffect(() => {
     (async () => {
@@ -38,6 +34,8 @@ const CreatePostsScreen = () => {
     })();
   }, [photo]);
 
+  const navigation = useNavigation();
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
@@ -48,8 +46,11 @@ const CreatePostsScreen = () => {
           <Text style={styles.headerTitle}>Створити публікацію</Text>
         </View>
         <View style={styles.main}>
-          <CreatePostsCamera photo={photo} setPhoto={setPhoto} />
-
+          <CreatePostsCamera
+            photo={photo}
+            setPhoto={setPhoto}
+            setLocation={setLocation}
+          />
           <Formik
             initialValues={{ name: "", location: "" }}
             onSubmit={(values, { resetForm }) => {
@@ -60,7 +61,9 @@ const CreatePostsScreen = () => {
               };
 
               console.log(newPost);
-              navigation.navigate("Posts", newPost);
+
+              navigation.navigate("Default", newPost);
+              setPhoto(null);
               resetForm();
             }}
           >
@@ -85,12 +88,26 @@ const CreatePostsScreen = () => {
                 ></TextInput>
 
                 <TouchableOpacity
-                  style={styles.button}
+                  style={{
+                    ...styles.button,
+                    backgroundColor: photo ? "#FF6C00" : "#F6F6F6",
+                  }}
                   activeOpacity={0.8}
                   onPress={handleSubmit}
+                  disabled={!photo}
                 >
                   <Text style={styles.buttonTitle}>Опублікувати</Text>
                 </TouchableOpacity>
+
+                <View style={styles.buttonContainer}>
+                  <TouchableOpacity
+                    style={styles.buttonDelete}
+                    activeOpacity={0.8}
+                    onPress={() => setPhoto(null)}
+                  >
+                    <AntDesign name="delete" size={32} color="#BDBDBD" />
+                  </TouchableOpacity>
+                </View>
               </View>
             )}
           </Formik>
@@ -145,8 +162,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
 
     borderRadius: 100,
-
-    backgroundColor: "#FF6C00",
   },
 
   buttonTitle: {
@@ -155,5 +170,24 @@ const styles = StyleSheet.create({
     textAlign: "center",
 
     color: "#FFF",
+  },
+
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+
+    marginTop: 80,
+  },
+
+  buttonDelete: {
+    width: 70,
+    height: 44,
+
+    justifyContent: "center",
+    alignItems: "center",
+
+    borderRadius: 25,
+
+    backgroundColor: "#F6F6F6",
   },
 });
