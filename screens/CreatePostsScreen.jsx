@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Formik } from "formik";
 import { AntDesign } from "@expo/vector-icons";
+import * as Location from "expo-location";
+
 import {
   View,
   StyleSheet,
@@ -16,8 +18,25 @@ import CreatePostsCamera from "../components/CreatePostsCamera";
 
 const CreatePostsScreen = () => {
   const [photo, setPhoto] = useState(null);
+  const [location, setLocation] = useState({});
 
   const navigation = useNavigation();
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.log("Permission to access location was denied");
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      const coords = {
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      };
+      setLocation(coords);
+    })();
+  }, [photo]);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -29,19 +48,18 @@ const CreatePostsScreen = () => {
           <Text style={styles.headerTitle}>Створити публікацію</Text>
         </View>
         <View style={styles.main}>
-          <CreatePostsCamera
-            photo={photo}
-            setPhoto={setPhoto}
-          ></CreatePostsCamera>
+          <CreatePostsCamera photo={photo} setPhoto={setPhoto} />
+
           <Formik
             initialValues={{ name: "", location: "" }}
             onSubmit={(values, { resetForm }) => {
               const newPost = {
                 ...values,
+                ...location,
                 photo,
               };
-              console.log(newPost);
 
+              console.log(newPost);
               navigation.navigate("Posts", newPost);
               resetForm();
             }}
@@ -60,7 +78,10 @@ const CreatePostsScreen = () => {
                   value={values.location}
                   onChangeText={handleChange("location")}
                   placeholder="Місцевість..."
-                  style={{ ...styles.input, marginBottom: 32 }}
+                  style={{
+                    ...styles.input,
+                    marginBottom: 32,
+                  }}
                 ></TextInput>
 
                 <TouchableOpacity

@@ -21,7 +21,7 @@ export default function App() {
       <AuthStack.Navigator>
         <AuthStack.Screen
           name="Registration"
-          component={RegistrationScreen}
+          component={HomeScreen}
           options={{ headerShown: false }}
         />
         <AuthStack.Screen

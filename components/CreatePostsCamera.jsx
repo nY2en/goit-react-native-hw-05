@@ -45,7 +45,7 @@ const CreatePostsCamera = ({ photo, setPhoto }) => {
 const styles = StyleSheet.create({
   cameraBlock: {
     height: 240,
-    marginBottom: 60,
+    marginBottom: 40,
 
     borderRadius: 8,
     borderWidth: 1,
