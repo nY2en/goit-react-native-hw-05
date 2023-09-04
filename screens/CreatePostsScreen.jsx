@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
-import { Camera } from "expo-camera";
+import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Formik } from "formik";
-import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import {
   View,
   StyleSheet,
@@ -11,34 +10,14 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   TextInput,
-  Image,
 } from "react-native";
 
+import CreatePostsCamera from "../components/CreatePostsCamera";
+
 const CreatePostsScreen = () => {
-  const [hasPermission, setHasPermission] = useState(null);
-  const [camera, setCamera] = useState(null);
   const [photo, setPhoto] = useState(null);
+
   const navigation = useNavigation();
-
-  useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
-      setHasPermission(status === "granted");
-    })();
-  }, []);
-
-  const takePhoto = async () => {
-    const photo = await camera.takePictureAsync();
-
-    setPhoto(photo.uri);
-  };
-
-  if (hasPermission === null) {
-    return <View />;
-  }
-  if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
-  }
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -50,16 +29,10 @@ const CreatePostsScreen = () => {
           <Text style={styles.headerTitle}>Створити публікацію</Text>
         </View>
         <View style={styles.main}>
-          <Camera style={styles.camera} ref={setCamera}>
-            {photo && (
-              <View style={styles.tookedPhoto}>
-                <Image soure={{ uri: photo }} />
-              </View>
-            )}
-            <TouchableOpacity style={styles.icon} onPress={takePhoto}>
-              <FontAwesome5 name="camera" size={24} color="#BDBDBD" />
-            </TouchableOpacity>
-          </Camera>
+          <CreatePostsCamera
+            photo={photo}
+            setPhoto={setPhoto}
+          ></CreatePostsCamera>
           <Formik
             initialValues={{ name: "", location: "" }}
             onSubmit={(values, { resetForm }) => {
@@ -117,7 +90,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 32,
-    paddingTop: 36,
+    paddingTop: 40,
     paddingBottom: 16,
     paddingHorizontal: 16,
     borderBottomWidth: 1,
@@ -134,31 +107,6 @@ const styles = StyleSheet.create({
   main: {
     position: "relative",
     paddingHorizontal: 16,
-  },
-
-  camera: {
-    height: 240,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 60,
-  },
-
-  icon: {
-    width: 60,
-    height: 60,
-    backgroundColor: "#fff",
-    borderRadius: 50,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  tookedPhoto: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    height: 240,
-    width: "100%",
-    // pointerEvents: "none",
   },
 
   input: {

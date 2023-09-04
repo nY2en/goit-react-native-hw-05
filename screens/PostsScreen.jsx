@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   header: {
     alignItems: "flex-end",
     marginBottom: 32,
-    paddingTop: 36,
+    paddingTop: 40,
     paddingBottom: 16,
     paddingHorizontal: 8,
 
