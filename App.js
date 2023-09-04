@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { RegistrationScreen, LoginScreen } from "./screens/auth";
 import { useFonts } from "expo-font";
-import { HomeScreen } from "./screens/main";
+import { HomeScreen } from "./screens/main/Home";
 
 const AuthStack = createStackNavigator();
 
